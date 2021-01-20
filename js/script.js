@@ -69,7 +69,7 @@ function getRandomQuote() {
     
     previouslySelectedQuotes.push(randomNumber);
 
-    console.log(previouslySelectedQuotes);
+   //console.log(previouslySelectedQuotes);
 
     let selectedQuote = quotes[randomNumber];
     
@@ -78,8 +78,8 @@ function getRandomQuote() {
     return selectedQuote;
     
   }
-console.log(quotes[4].quote);
-  console.log(previouslySelectedQuotes);
+
+// console.log(previouslySelectedQuotes);
 // console.log(getRandomQuote());
 
 /***

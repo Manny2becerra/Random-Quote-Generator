@@ -43,22 +43,44 @@ var quotes = [
 ];
 
 
-
-// tracks previously used Quotes
-let previousSelectedQuotes = [];
+// tracks previous quotes
+let previouslySelectedQuotes = [];
 
 /***
  * `getRandomQuote` function
 ***/
 
 function getRandomQuote() {
-  let randomNumber = Math.floor( Math.random() * 4 );
+    let randomNumber;
 
-  let SelectedQuote = quotes[randomNumber];
+    if (previouslySelectedQuotes.length === 5) {
+      
+      previouslySelectedQuotes = [];
 
-  return SelectedQuote;
+    }
+    
+
+    do {
+      
+       randomNumber = Math.floor( Math.random() * 5);
+
+    }
+    while (previouslySelectedQuotes.includes(randomNumber));
+    
+    previouslySelectedQuotes.push(randomNumber);
+
+    console.log(previouslySelectedQuotes);
+
+    let selectedQuote = quotes[randomNumber];
+    
+    
+    
+    return selectedQuote;
+    
   }
-console.log(getRandomQuote());
+console.log(quotes[4].quote);
+  console.log(previouslySelectedQuotes);
+// console.log(getRandomQuote());
 
 /***
  * `printQuote` function
@@ -66,29 +88,45 @@ console.log(getRandomQuote());
 
 function printQuote() {
   let randomQ = getRandomQuote();
+  
+  
+  //console.log(randomQ);
+  
+  let objectArray = [];
+
+  for (let key in randomQ) {
+     objectArray += [`${key}, ` ];
+  }
+   
+  //console.log(objectArray);
+
   let html = `<p class="quote"> ${randomQ['quote']} </p>
-              <p class="source"> quote source </p>`;
-              if (randomQ.includes('citaiotion')) {
-                html = `<p class="quote"> ${randomQ['quote']} </p>
-                        <p class="source"> ${randomQ['author']}
-                            <span class="citation"> ${randomQ['citation']} </span>
-                        </p>`;
-              } else if (randomQ.includes('year')) {
-                html = `<p class="quote"> ${randomQ['quote']} </p>
-                        <p class="source"> ${randomQ['author']}
-                            <span class="year"> ${randomQ['year']} </span>
-                        </p>`;
-              } else if (randomQ.includes('citation') && randomQ.includes('year')) {
+              <p class="source"> ${randomQ['author']} </p>`;
+
+              // if statements that test each object and see how many properties there are to display to html
+  
+              if (objectArray.includes('citation') && objectArray.includes('year')) {
                 html = `<p class="quote"> ${randomQ['quote']} </p>
                         <p class="source"> ${randomQ['author']}
                             <span class="citation"> ${randomQ['citation']} </span>
                             <span class="year"> ${randomQ['year']} </span>
                         </p>`;
-              }
-        return document.getElementById('quote-box').innerHTML = html;
+              } else if (objectArray.includes('citation')) {
+                html = `<p class="quote"> ${randomQ['quote']} </p>
+                        <p class="source"> ${randomQ['author']}
+                            <span class="citation"> ${randomQ['citation']} </span>
+                        </p>`;
+              } else if (objectArray.includes('year')) {
+                html = `<p class="quote"> ${randomQ['quote']} </p>
+                        <p class="source"> ${randomQ['author']}
+                            <span class="year"> ${randomQ['year']} </span>
+                        </p>`;
+              } 
+        
+              return document.getElementById('quote-box').innerHTML = html;
 }
 
-
+// console.log(printQuote());
 
 
 
